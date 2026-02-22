@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="products" id="products"></section>
+<div class="product-detail">
+    <img id="product-img">
+    <h2 id="product-name"></h2>
+    <p id="product-price"></p>
+    <p id="product-description"></p>
+</div>
+<script>
+
+// Product Database (Simple Example)
+const products = {
+    1: {
+        name: "A-Line Dress ",
+        price: "₹",
+        image: "images/shirt.jpg",
+        description: "Premium cotton stylish men shirt."
+    },
+    2: {
+        name: "Bodycon Dress",
+        price: "$79",
+        image: "images/dress.jpg",
+        description: "Elegant sleeveless bodycon dress."
+    }
+};
+
+// Get ID from URL
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+// Show Product Data
+if (products[id]) {
+    document.getElementById("product-name").innerText = products[id].name;
+    document.getElementById("product-price").innerText = products[id].price;
+    document.getElementById("product-img").src = products[id].image;
+    document.getElementById("product-description").innerText = products[id].description;
+}
+
+<form action="addtocart.php" method="POST">
+  <input type="hidden" name="name" value="Men Shirt">
+  <input type="hidden" name="price" value="1200">
+  <button type="submit">Add To Cart</button>
+</form>

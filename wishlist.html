@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wishlist </title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Your Wishlist</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<div class="cart-container" id="wishlistItems"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+  let container = document.getElementById("wishlistItems");
+
+  if (wishlist.length === 0) {
+    container.innerHTML = "<h2>Your wishlist is empty.</h2>";
+  } else {
+    wishlist.forEach((item, home) => {
+      container.innerHTML += `
+        <div class="cart-item">
+          <div>
+            <h3>${item.name}</h3>
+            <p>₹${item.price}</p>
+          </div>
+          <button onclick="removeItem(${index})">Remove</button>
+        </div>
+      `;
+    });
+  }
+
+  window.removeItem = function(index) {
+    wishlist.splice(index, 1);
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    location.reload();
+  }
+
+});
+
+</script>
+<button onclick="goBack()" class="back-btn">⬅ Back</button>
+<script>
+    function goBack() {
+     window.history.back();
+     }
+    </script>
+
+</body>
+</html>

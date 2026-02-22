@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+  <title>Signup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="signup-container">
+
+  <div class="signup-box">
+    <h2>Create Account</h2>
+
+    <form action="register.php" method="POST">
+
+      <div class="input-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username" required>
+      </div>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Enter email" required>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required>
+      </div>
+
+      <div class="extra-options">
+        <a href="login.html">Already have an account?</a>
+      </div>
+
+      <button type="submit" class="signup-btn">Sign Up</button>
+
+    </form>
+
+  </div>
+
+</div>
+</body>
+</html>

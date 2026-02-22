@@ -1,0 +1,145 @@
+
+<?php
+session_start();
+
+if(!isset($_SESSION['cart'])){
+    $_SESSION['cart'] = [];
+}
+?>
+
+<?php
+session_start();
+
+$name = $_POST['name'];
+$price = $_POST['price'];
+
+$item = [
+    "name" => $name,
+    "price" => $price,
+    "qty" => 1
+];
+
+$_SESSION['cart'][] = $item;
+
+header("Location: cart.php");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<header>
+  <h1>Your cart</h1>
+  <nav>
+    <a href="home.html">Home</a>
+   
+  </nav>
+</header>
+
+<div id="cartItems"></div>
+
+<h2>My Cart</h2>
+
+<table border="1" width="600">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Total</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+  <tbody id="cart-body"></tbody>
+</table>
+
+<h3>Total Bill: ₹ <span id="grand-total">0</span></h3>
+
+<script>
+
+let cart = [];
+
+function addToCart(name, price) {
+
+  let product = cart.find(item => item.name === name);
+
+  if(product){
+    product.qty += 1;
+  } else {
+    cart.push({
+      name: name,
+      price: price,
+      qty: 1
+    });
+  }
+
+  renderCart();
+}
+
+function renderCart() {
+
+  let cartBody = document.getElementById("cart-body");
+  let grandTotal = 0;
+  cartBody.innerHTML = "";
+
+  cart.forEach((item, index) => {
+
+    let total = item.price * item.qty;
+    grandTotal += total;
+
+    cartBody.innerHTML += `
+      <tr>
+        <td>${item.name}</td>
+        <td>₹ ${item.price}</td>
+        <td>${item.qty}</td>
+        <td>₹ ${total}</td>
+        <td><button onclick="removeItem(${index})">X</button></td>
+      </tr>
+    `;
+  });
+
+  document.getElementById("grand-total").innerText = grandTotal;
+}
+
+function removeItem(index){
+  cart.splice(index,1);
+  renderCart();
+}
+
+</script>
+<button class="checkout">Checkout</button>
+<center><button onclick="goBack()" class="back-btn">⬅ Back</button></center>
+
+<style>
+.back-btn{
+    background-color: black;
+    color: white;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-btn:hover{
+    background-color: #444;
+}
+</style>
+
+<script>
+function goBack(){
+    window.history.back();
+}
+</script>
+<!-- CART -->
+<section class="cart" id="cart"></section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
